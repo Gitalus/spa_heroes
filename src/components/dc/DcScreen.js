@@ -5,6 +5,7 @@ export const DcScreen = () => {
     return (
         <div>
             <h1>Marvel Screen</h1>
+            <hr />
             <HeroList publisher="DC Comics" />
         </div>
     )
