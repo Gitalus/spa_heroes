@@ -1,29 +1,31 @@
-import React from 'react'
-import { heroes } from '../../data/heroes'
+import React, { useState } from 'react';
+import { heroes } from '../../data/heroes';
 import { useForm } from '../../hooks/useForm';
 import { HeroCard } from '../heroes/HeroCard';
 
 export const SearchScreen = () => {
 
 
-    const [{ hero }, handleInputChange/* , reset */] = useForm({
+    const [{ hero }, handleInputChange, reset] = useForm({
         hero: ''
     });
-
-    const heroesFiltered = heroes.filter((_hero) => {
-        let lowerHero = hero.toLowerCase();
-        let cadena = '';
-        for (const att in _hero) {
-            cadena += _hero[att];
-        }
-        return cadena.toLowerCase().includes(lowerHero);
-    });
+    const [filtered, setFiltered] = useState([])
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // if (hero.length < 1) return;
+        if (hero.length < 1) return;
 
-        // reset();
+        let _heroesFiltered = heroes.filter((_hero) => {
+            let lowerHero = hero.toLowerCase();
+            let cadena = '';
+            for (const att in _hero) {
+                cadena += _hero[att];
+            }
+            return cadena.toLowerCase().includes(lowerHero);
+        })
+
+        setFiltered(_heroesFiltered);
+        reset();
     };
 
     return (
@@ -43,20 +45,21 @@ export const SearchScreen = () => {
                             value={hero}
                             name="hero"
                             onChange={handleInputChange}
+                            autoComplete="off"
                         />
-                        {/* <button
+                        <button
                             type="submit"
                             className="btn mt-1 w-100 btn-outline-primary"
                         >
                             Search
-                        </button> */}
+                        </button>
                     </form>
                 </div>
                 <div className="col-8">
                     <h4>Results</h4>
                     <hr />
                     {
-                        heroesFiltered.map((hero) => (
+                        filtered.map((hero) => (
                             <HeroCard
                                 key={hero.id}
                                 {...hero}
