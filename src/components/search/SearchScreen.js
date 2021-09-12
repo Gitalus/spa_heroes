@@ -3,7 +3,7 @@ import { heroes } from '../../data/heroes';
 import { useForm } from '../../hooks/useForm';
 import { HeroCard } from '../heroes/HeroCard';
 
-export const SearchScreen = () => {
+export const SearchScreen = ({ history }) => {
 
     const [{ hero }, handleInputChange, reset] = useForm({
         hero: ''
@@ -12,22 +12,7 @@ export const SearchScreen = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (hero.length < 1) {
-            setFiltered([])
-            return;
-        }
-
-        let _heroesFiltered = heroes.filter((_hero) => {
-            let lowerHero = hero.toLowerCase();
-            let cadena = '';
-            for (const att in _hero) {
-                cadena += _hero[att];
-            }
-            return cadena.toLowerCase().includes(lowerHero);
-        })
-
-        setFiltered(_heroesFiltered);
-        reset();
+        history.push(`?q=${hero}`)
     };
 
     return (
