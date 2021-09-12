@@ -5,7 +5,6 @@ import { HeroCard } from '../heroes/HeroCard';
 
 export const SearchScreen = () => {
 
-
     const [{ hero }, handleInputChange, reset] = useForm({
         hero: ''
     });
@@ -13,7 +12,10 @@ export const SearchScreen = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (hero.length < 1) return;
+        if (hero.length < 1) {
+            setFiltered([])
+            return;
+        }
 
         let _heroesFiltered = heroes.filter((_hero) => {
             let lowerHero = hero.toLowerCase();
@@ -59,12 +61,15 @@ export const SearchScreen = () => {
                     <h4>Results</h4>
                     <hr />
                     {
-                        filtered.map((hero) => (
-                            <HeroCard
-                                key={hero.id}
-                                {...hero}
-                            />
-                        ))
+                        filtered.length > 0 ?
+                            filtered.map((hero) => (
+                                <HeroCard
+                                    key={hero.id}
+                                    {...hero}
+                                />
+                            ))
+                            :
+                            <p className="text-muted">Data not found</p>
                     }
                 </div>
             </div>
