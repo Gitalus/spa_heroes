@@ -10,7 +10,7 @@ export const SearchScreen = ({ history }) => {
     const location = useLocation();
     const { q = '' } = queryString.parse(location.search);
 
-    const [{ searchText }, handleInputChange, reset] = useForm({
+    const [{ searchText }, handleInputChange] = useForm({
         searchText: q
     });
 
@@ -51,16 +51,25 @@ export const SearchScreen = ({ history }) => {
                 <div className="col-8">
                     <h4>Results</h4>
                     <hr />
+
                     {
-                        filtered.length > 0 ?
-                            filtered.map((hero) => (
-                                <HeroCard
-                                    key={hero.id}
-                                    {...hero}
-                                />
-                            ))
-                            :
-                            <p className="text-muted">Data not found</p>
+                        (q === '') &&
+                        <div className="alert alert-info">Search a Hero</div>
+                    }
+
+                    {
+                        (q !== '' && filtered.length === 0) &&
+                        <div className="alert alert-danger">Such a Hero doesn't exists: {q}</div>
+                    }
+
+                    {
+                        filtered.length > 0 &&
+                        filtered.map((hero) => (
+                            <HeroCard
+                                key={hero.id}
+                                {...hero}
+                            />
+                        ))
                     }
                 </div>
             </div>
