@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import queryString from 'query-string'
+import { useLocation } from 'react-router';
 import { heroes } from '../../data/heroes';
 import { useForm } from '../../hooks/useForm';
 import { HeroCard } from '../heroes/HeroCard';
 
 export const SearchScreen = ({ history }) => {
+
+    const location = useLocation();
+    console.log(queryString.parse(location.search));
 
     const [{ hero }, handleInputChange, reset] = useForm({
         hero: ''
