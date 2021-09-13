@@ -14,7 +14,7 @@ export const SearchScreen = ({ history }) => {
         searchText: q
     });
 
-    const filtered = useMemo(() => getHeroesByName(searchText), [q]);
+    const filtered = useMemo(() => getHeroesByName(q), [q]);
 
     const handleSubmit = (e) => {
         e.preventDefault();
