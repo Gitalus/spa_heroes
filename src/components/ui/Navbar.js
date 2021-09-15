@@ -1,10 +1,22 @@
-import React, { useContext } from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import { AuthContext } from '../../auth/AuthContext'
+import React, { useContext } from 'react';
+import { Link, NavLink, useHistory } from 'react-router-dom';
+import { AuthContext } from '../../auth/AuthContext';
+import { types } from '../../types/types';
 
 export const Navbar = () => {
 
-    const { user } = useContext(AuthContext);
+    const { user, dispatch } = useContext(AuthContext);
+    // El router también es un context provider, por lo tanto podemos acceder a sus props
+    // sin tener que pasarlas como argumento al igual que el context
+    const history = useHistory();
+
+    const handleLogout = () => {
+        dispatch({
+            type: types.logout
+        })
+
+        history.replace('/login');
+    }
 
     return (
         <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
@@ -55,14 +67,12 @@ export const Navbar = () => {
                             {user.name}
                         </span>
                     }
-                    <NavLink
-                        activeClassName="active"
-                        className="nav-item nav-link"
-                        exact
-                        to="/login"
+                    <button
+                        className="nav-item nav-link btn me-3"
+                        onClick={handleLogout}
                     >
                         Logout
-                    </NavLink>
+                    </button>
                 </ul>
             </div>
         </nav>
