@@ -19,7 +19,12 @@ export const AppRouter = () => {
                 {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                 <Switch>
-                    <PublicRoute exact path="/login" component={LoginScreen} />
+                    <PublicRoute
+                        exact
+                        path="/login"
+                        component={LoginScreen}
+                        isAuthenticated={user.logged}
+                    />
 
                     {/* La siguiente contiene todas las rutas privadas, por lo tanto, podemos proteger
                     solo la siguiente ruta si está deslogeado. */}
