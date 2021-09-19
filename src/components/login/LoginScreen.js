@@ -7,7 +7,9 @@ export const LoginScreen = ({ history }) => {
     const { dispatch } = useContext(AuthContext);
 
     const handleLogin = () => {
-        // history.push('/');
+
+        const lastPath = localStorage.getItem('lastPath') || '/';
+
         // Reemplaza la última ruta, por lo tanto no queda disponible para volver a login
         // ya que la última corresponde a /login
         dispatch({
@@ -17,7 +19,7 @@ export const LoginScreen = ({ history }) => {
             }
         })
 
-        history.replace('/');
+        history.replace(lastPath);
     }
 
 
