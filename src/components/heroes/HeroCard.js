@@ -1,7 +1,7 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { heroImages } from '../../helpers/heroImages';
 
-const heroImages = require.context('../../assets/heroes')
 
 export const HeroCard = ({
     id,

@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react'
 import { Redirect, useParams } from 'react-router'
+import { heroImages } from '../../helpers/heroImages';
 import { getHeroeById } from '../../selectors/getHeroById';
 
 // Es posible importar un grupo de recursos usando las características de webpack
-const heroImages = require.context('../../assets/heroes', true); // true para que busque en subcarpetas
+// const heroImages = require.context('../../assets/heroes', true); // true para que busque en subcarpetas
 
 
 export const HeroeScreen = ({ history }) => {
